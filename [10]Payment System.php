@@ -122,10 +122,25 @@ class Cash implements PaymentMethod{
 class PaymentProcessor{
     private $paymentMethod;
 
+    /*  
+    
+       This means:
+       “I don’t care which payment method you give me…
+       as long as it follows the PaymentMethod interface.” 
+
+       It only knows:
+    ✅ “Something that can pay() and refund()”
+    */
     public function __construct(PaymentMethod $method){
         $this->paymentMethod = $method;
     }
 
+    /*
+        What is $this->paymentMethod?
+        new CreditCard(...)
+        new PayPal(...)
+        new Cash(...)
+    */
     public function processPayment($amount){
         $result = $this->paymentMethod->pay($amount);
         
